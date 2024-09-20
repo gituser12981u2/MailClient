@@ -1,3 +1,4 @@
+// Package providers defines the EmailProvider interface and factory function.
 package providers
 
 import (
@@ -6,6 +7,7 @@ import (
 	"mailclient/internal/models"
 )
 
+// EmailProvider defines the interface for email provider implementations.
 type EmailProvider interface {
 	Connect() error
 	Disconnect() error
@@ -20,6 +22,7 @@ type EmailProvider interface {
 	// SearchEmails(query string, limit, offset int) ([]models.Email, error)
 }
 
+// New creates a new EmailProvider based on the provided type and configuration.
 func New(providerType string, config map[string]string) (EmailProvider, error) {
 	switch providerType {
 	case "proton":

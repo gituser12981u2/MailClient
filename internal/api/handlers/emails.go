@@ -1,3 +1,4 @@
+// Package handlers provides HTTP request handlers for the email client API.
 package handlers
 
 import (
@@ -10,6 +11,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// GetEmails returns a handler function for retrieving emails.
+// It accepts query parameters for folder, limit, and offset.
 func GetEmails(emailService *services.EmailService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		folder := c.DefaultQuery("folder", "inbox")
@@ -26,6 +29,7 @@ func GetEmails(emailService *services.EmailService) gin.HandlerFunc {
 	}
 }
 
+// GetEmail returns a handler function for retrieving a single email by its ID.
 func GetEmail(emailService *services.EmailService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id := c.Param("id")
@@ -40,6 +44,7 @@ func GetEmail(emailService *services.EmailService) gin.HandlerFunc {
 	}
 }
 
+// SendEmail returns a handler function for sending a new email.
 func SendEmail(emailService *services.EmailService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var email models.Email

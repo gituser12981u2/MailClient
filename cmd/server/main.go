@@ -1,3 +1,5 @@
+// Package main is the entry point for the email client application.
+// It sets up the configuration, initializes services, and starts the HTTP server.
 package main
 
 import (
@@ -12,11 +14,13 @@ import (
 )
 
 func main() {
+	// Load configuration
 	cfg, err := config.Load()
 	if err != nil {
 		log.Fatalf("Failed to create email server: %v", err)
 	}
 
+	// Initialize email provider
 	provider, err := providers.New(cfg.Provider, cfg.ProviderConfig)
 	if err != nil {
 		log.Fatalf("Failed to initialize email provider: %v", err)
