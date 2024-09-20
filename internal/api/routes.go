@@ -1,3 +1,4 @@
+// Package api provides the API setup and routing for the email client.
 package api
 
 import (
@@ -7,6 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// SetupRoutes configures the API routes for the email client.
+// It sets up the routes for email-related operations.
 func SetupRoutes(router *gin.Engine, authService *services.AuthService, emailService *services.EmailService) {
 	api := router.Group("/api/v1")
 
@@ -17,4 +20,6 @@ func SetupRoutes(router *gin.Engine, authService *services.AuthService, emailSer
 		emails.GET("/:id", handlers.GetEmail(emailService))
 		emails.POST("", handlers.SendEmail(emailService))
 	}
+
+	// TODO: Add routes for authentication, user management, and other features
 }
