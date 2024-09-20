@@ -1,3 +1,4 @@
+// Package providers implements different email provider integrations
 package providers
 
 import (
@@ -12,6 +13,7 @@ import (
 	"github.com/ProtonMail/go-proton-api"
 )
 
+// ProtonMailProvider implements the EmailProvider interface for ProtonMail.
 type ProtonMailProvider struct {
 	username string
 	password string
@@ -20,6 +22,7 @@ type ProtonMailProvider struct {
 	mu       sync.Mutex
 }
 
+// NewProtonMailProvider creates a new ProtonMailProvider instance.
 func NewProtonMailProvider(username, password string) (*ProtonMailProvider, error) {
 	provider := &ProtonMailProvider{
 		username: username,
@@ -34,6 +37,7 @@ func NewProtonMailProvider(username, password string) (*ProtonMailProvider, erro
 	return provider, nil
 }
 
+// Connect establishes a connection to the ProtonMail API.
 func (p *ProtonMailProvider) Connect() error {
 	p.mu.Lock()
 	defer p.mu.Unlock()
@@ -66,6 +70,7 @@ func (p *ProtonMailProvider) Connect() error {
 	return nil
 }
 
+// Disconnect closes the connection to the ProtonMail API.
 func (p *ProtonMailProvider) Disconnect() error {
 	p.mu.Lock()
 	defer p.mu.Unlock()
@@ -77,6 +82,7 @@ func (p *ProtonMailProvider) Disconnect() error {
 	return nil
 }
 
+// GetEmails retrieves emails from the specified folder with pagination.
 func (p *ProtonMailProvider) GetEmails(folder string, limit, offset int) ([]models.Email, error) {
 	ctx := context.Background()
 	filter := proton.MessageFilter{}
@@ -98,6 +104,7 @@ func (p *ProtonMailProvider) GetEmails(folder string, limit, offset int) ([]mode
 	return emails, nil
 }
 
+// GetEmail retrieves a single email by its ID.
 func (p *ProtonMailProvider) GetEmail(id string) (*models.Email, error) {
 	if err := p.Connect(); err != nil {
 		return nil, fmt.Errorf("failed to connect: %v", err)
@@ -106,6 +113,7 @@ func (p *ProtonMailProvider) GetEmail(id string) (*models.Email, error) {
 	return nil, fmt.Errorf("GetEmail not implemented")
 }
 
+// SendEmail sends a new email.
 func (p *ProtonMailProvider) SendEmail(email *models.Email) error {
 	if err := p.Connect(); err != nil {
 		return fmt.Errorf("failed to connect: %v", err)
@@ -114,6 +122,7 @@ func (p *ProtonMailProvider) SendEmail(email *models.Email) error {
 	return fmt.Errorf("SendEmail not implemented")
 }
 
+// DeleteEmail deletes an email by its ID.
 func (p *ProtonMailProvider) DeleteEmail(id string) error {
 	if err := p.Connect(); err != nil {
 		return fmt.Errorf("failed to connect: %v", err)
