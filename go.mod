@@ -3,11 +3,15 @@ module mailclient
 go 1.23.1
 
 require (
+	github.com/ProtonMail/go-proton-api v0.4.0
+	github.com/gin-gonic/gin v1.10.0
+)
+
+require (
 	github.com/ProtonMail/bcrypt v0.0.0-20211005172633-e235017c1baf // indirect
 	github.com/ProtonMail/gluon v0.13.1-0.20221025093924-86bbf0261eb8 // indirect
 	github.com/ProtonMail/go-crypto v0.0.0-20220824120805-4b6e5c587895 // indirect
 	github.com/ProtonMail/go-mime v0.0.0-20220429130430-2192574d760f // indirect
-	github.com/ProtonMail/go-proton-api v0.4.0 // indirect
 	github.com/ProtonMail/go-srp v0.0.5 // indirect
 	github.com/ProtonMail/gopenpgp/v2 v2.4.10 // indirect
 	github.com/PuerkitoBio/goquery v1.8.0 // indirect
@@ -15,7 +19,7 @@ require (
 	github.com/bradenaw/juniper v0.8.0 // indirect
 	github.com/bytedance/sonic v1.11.6 // indirect
 	github.com/bytedance/sonic/loader v0.1.1 // indirect
-	github.com/cloudflare/circl v1.2.0 // indirect
+	github.com/cloudflare/circl v1.3.7 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
 	github.com/cloudwego/iasm v0.2.0 // indirect
 	github.com/cronokirby/saferith v0.33.0 // indirect
@@ -24,7 +28,6 @@ require (
 	github.com/emersion/go-vcard v0.0.0-20220507122617-d4056df0ec4a // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
-	github.com/gin-gonic/gin v1.10.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.20.0 // indirect
@@ -33,6 +36,7 @@ require (
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.7 // indirect
+	github.com/kr/text v0.2.0 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
