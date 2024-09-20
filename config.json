@@ -1,0 +1,10 @@
+{
+  "server_address": ":8080",
+  "provider": "proton",
+  "provider_config": {
+    "username": "MichaelMGodox@protonmail.com",
+    "password": "5c5d0b6e9426ad394679a40d65e87256fd022d2ff091de3a7d1bf321598f42c8"
+  },
+  "jwt_secret": "secret_key_12345"
+}
+
