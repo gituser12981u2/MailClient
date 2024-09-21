@@ -20,6 +20,8 @@ require (
 	github.com/cloudwego/iasm v0.2.0 // indirect
 	github.com/cronokirby/saferith v0.33.0 // indirect
 	github.com/emersion/go-message v0.16.0 // indirect
+	github.com/emersion/go-sasl v0.0.0-20200509203442-7bfe0ed36a21 // indirect
+	github.com/emersion/go-smtp v0.21.3 // indirect
 	github.com/emersion/go-textwrapper v0.0.0-20200911093747-65d896831594 // indirect
 	github.com/emersion/go-vcard v0.0.0-20220507122617-d4056df0ec4a // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect

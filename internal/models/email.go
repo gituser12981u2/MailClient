@@ -8,3 +8,10 @@ type Email struct {
 	Sender  string `json:"sender"`
 	Body    string `json:"body"`
 }
+
+type SMTPConfig struct {
+	Host     string `json:"host"`
+	Port     int    `json:"port"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+}

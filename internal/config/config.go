@@ -4,14 +4,17 @@ package config
 import (
 	"encoding/json"
 	"os"
+
+	"mailclient/internal/models"
 )
 
 // Config represents the application configuration
 type Config struct {
-	ServerAddress  string            `json:"server_address"`
-	Provider       string            `json:"provider"`
-	ProviderConfig map[string]string `json:"provider_config"`
-	JWTSecret      string            `json:"jwt_secret"`
+	ServerAddress  string                       `json:"server_address"`
+	Provider       string                       `json:"provider"`
+	ProviderConfig map[string]string            `json:"provider_config"`
+	SMTPConfigs    map[string]models.SMTPConfig `json:"smtp_configs"`
+	JWTSecret      string                       `json:"jwt_secret"`
 }
 
 // Load reads the configuration from a JSON file and returns a Config struct.
