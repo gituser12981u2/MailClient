@@ -32,8 +32,10 @@ func New(providerType string, config map[string]string) (EmailProvider, error) {
 			Username: config["username"],
 			Password: config["password"],
 		}
-		if port, err := strconv.Atoi(config["port"]); err == nil {
-			smtpConfg.Port = port
+		if portStr, ok := config["port"]; ok {
+			if port, err := strconv.Atoi(portStr); err == nil {
+				smtpConfg.Port = port
+			}
 		}
 		return NewSMTPProvider(smtpConfg)
 	case "proton":

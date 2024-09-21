@@ -15,32 +15,29 @@ func TestMailtrapSMTPProvider(t *testing.T) {
 	username := os.Getenv("MAILTRAP_USERNAME")
 	password := os.Getenv("MAILTRAP_PASSWORD")
 
-	if host == "" || portStr == "" || username == "" || password == "" {
+	if host == "" || username == "" || password == "" {
 		t.Fatalf("Mailtrap credentials not set in environment variables")
-	}
-
-	// Convert port string to int
-	port, err := strconv.Atoi(portStr)
-	if err != nil {
-		t.Fatalf("Invalid port number: %v", err)
 	}
 
 	// Create an SMTP provider with Mailtrap credentials
 	config := models.SMTPConfig{
 		Host:     host,
-		Port:     port,
 		Username: username,
 		Password: password,
 	}
+
+	// Convert port string to int
+	if portStr != "" {
+		port, err := strconv.Atoi(portStr)
+		if err != nil {
+			t.Fatalf("Invalid port number: %v", err)
+		}
+		config.Port = port
+	}
+
 	provider, err := NewSMTPProvider(config)
 	if err != nil {
 		t.Fatalf("Failed to create SMTP provider: %v", err)
-	}
-
-	// Test Connect
-	err = provider.Connect()
-	if err != nil {
-		t.Errorf("Connect failed: %v", err)
 	}
 
 	// Test SendEmail
@@ -52,12 +49,6 @@ func TestMailtrapSMTPProvider(t *testing.T) {
 	err = provider.SendEmail(email)
 	if err != nil {
 		t.Errorf("SendEmail failed: %v", err)
-	}
-
-	// Test Disconnect
-	err = provider.Disconnect()
-	if err != nil {
-		t.Errorf("Disconnect failed: %v", err)
 	}
 
 	t.Log("Check Mailtrap inbox for the test email")

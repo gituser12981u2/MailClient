@@ -43,12 +43,12 @@ go mod tidy
 ```json
 {
     "server_address": ":8080",
-    "provider:" "proton",
+    "jwt_secret": "your_jwt_secret",
     "provider_config": {
+        "type": "proton",
         "username": "your_protonmail_username",
         "password": "your_protonmail_password"
     },
-    "jwt_secret": "your_jwt_secret"
 }
 ```
 

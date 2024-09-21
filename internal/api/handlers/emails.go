@@ -54,15 +54,18 @@ func SendEmail(emailService *services.EmailService) gin.HandlerFunc {
 		}
 
 		if err := emailService.SendEmail(&email); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
-		}
-
-		if err := emailService.SendEmail(&email); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 
-		c.JSON(http.StatusOK, gin.H{"message": "Email sent successfully"})
+		c.JSON(http.StatusOK, gin.H{
+			"message": "Email sent successfully",
+			"details": gin.H{
+				"id":        email.ID,
+				"subject":   email.Subject,
+				"sender":    email.Sender,
+				"recipient": email.Body,
+			},
+		})
 	}
 }

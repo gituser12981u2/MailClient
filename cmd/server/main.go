@@ -21,7 +21,7 @@ func main() {
 	}
 
 	// Initialize email provider
-	provider, err := providers.New(cfg.Provider, cfg.ProviderConfig)
+	provider, err := providers.New(cfg.ProviderConfig.Type, cfg.ProviderConfig.Config)
 	if err != nil {
 		log.Fatalf("Failed to initialize email provider: %v", err)
 	}
