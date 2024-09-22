@@ -33,6 +33,9 @@ func main() {
 	// Set up Gin router
 	router := gin.Default()
 
+	// Trust only local proxies
+	router.SetTrustedProxies([]string{"127.0.0.1"})
+
 	// Set up routes
 	api.SetupRoutes(router, authService, emailService)
 
