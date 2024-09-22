@@ -43,7 +43,7 @@ func TestMailtrapSMTPProvider(t *testing.T) {
 	// Test SendEmail
 	email := &models.Email{
 		Subject: "Test Subject",
-		Sender:  "sender@example.com",
+		To:      "sender@example.com",
 		Body:    "This is a test email sent via Mailtrap with TLS",
 	}
 	err = provider.SendEmail(email)

@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/smtp"
 	"strings"
+	"time"
 
 	"mailclient/internal/models"
 )
@@ -99,11 +100,11 @@ func (p *SMTPProvider) tryConnect(port int, email *models.Email) error {
 }
 
 func (p *SMTPProvider) sendEmail(c *smtp.Client, email *models.Email) error {
-	if err := c.Mail(p.config.Username); err != nil {
+	if err := c.Mail(email.From); err != nil {
 		return fmt.Errorf("MAIL command failed: %w", err)
 	}
 
-	to := strings.Split(email.Sender, ",")
+	to := strings.Split(email.To, ",")
 	for _, recipient := range to {
 		if err := c.Rcpt(strings.TrimSpace(recipient)); err != nil {
 			return fmt.Errorf("RCPT command failed: %w", err)
@@ -115,7 +116,22 @@ func (p *SMTPProvider) sendEmail(c *smtp.Client, email *models.Email) error {
 		return fmt.Errorf("DATA command failed: %w", err)
 	}
 
-	msg := fmt.Sprintf("To: %s\r\nSubject: %s\r\n\r\n%s", email.Sender, email.Subject, email.Body)
+	headers := fmt.Sprintf(
+		"From: %s\r\n"+
+			"To: %s\r\n"+
+			"Subject: %s\r\n"+
+			"Date: %s\r\n"+
+			"Message-ID: <%s>\r\n"+
+			"\r\n",
+		email.From,
+		email.To,
+		email.Subject,
+		email.Date.Format(time.RFC1123Z),
+		email.MessageID,
+	)
+
+	msg := headers + email.Body
+
 	if _, err = w.Write([]byte(msg)); err != nil {
 		return fmt.Errorf("failed to write email body: %w", err)
 	}

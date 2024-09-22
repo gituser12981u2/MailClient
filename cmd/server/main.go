@@ -28,7 +28,7 @@ func main() {
 
 	// Initialize services
 	authService := services.NewAuthService(cfg.JWTSecret)
-	emailService := services.NewEmailService(provider)
+	emailService := services.NewEmailService(provider, cfg.ProviderConfig.Config["username"])
 
 	// Set up Gin router
 	router := gin.Default()

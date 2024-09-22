@@ -58,14 +58,6 @@ func SendEmail(emailService *services.EmailService) gin.HandlerFunc {
 			return
 		}
 
-		c.JSON(http.StatusOK, gin.H{
-			"message": "Email sent successfully",
-			"details": gin.H{
-				"id":        email.ID,
-				"subject":   email.Subject,
-				"sender":    email.Sender,
-				"recipient": email.Body,
-			},
-		})
+		c.JSON(http.StatusOK, gin.H{"message": "Email sent successfully"})
 	}
 }
