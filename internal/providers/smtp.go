@@ -1,6 +1,10 @@
 package providers
 
 import (
+	"html"
+)
+
+import (
 	"crypto/tls"
 	"fmt"
 	"log"
@@ -10,6 +14,10 @@ import (
 
 	"mailclient/internal/models"
 )
+
+func sanitize(input string) string {
+	return html.EscapeString(input)
+}
 
 type SMTPProvider struct {
 	config models.SMTPConfig
@@ -116,6 +124,11 @@ func (p *SMTPProvider) sendEmail(c *smtp.Client, email *models.Email) error {
 		return fmt.Errorf("DATA command failed: %w", err)
 	}
 
+	safeFrom := sanitize(email.From)
+	safeTo := sanitize(email.To)
+	safeSubject := sanitize(email.Subject)
+	safeBody := sanitize(email.Body)
+
 	headers := fmt.Sprintf(
 		"From: %s\r\n"+
 			"To: %s\r\n"+
@@ -123,14 +136,14 @@ func (p *SMTPProvider) sendEmail(c *smtp.Client, email *models.Email) error {
 			"Date: %s\r\n"+
 			"Message-ID: <%s>\r\n"+
 			"\r\n",
-		email.From,
-		email.To,
-		email.Subject,
+		safeFrom,
+		safeTo,
+		safeSubject,
 		email.Date.Format(time.RFC1123Z),
 		email.MessageID,
 	)
 
-	msg := headers + email.Body
+	msg := headers + safeBody
 
 	if _, err = w.Write([]byte(msg)); err != nil {
 		return fmt.Errorf("failed to write email body: %w", err)
