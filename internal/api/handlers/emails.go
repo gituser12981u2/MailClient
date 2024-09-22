@@ -54,11 +54,6 @@ func SendEmail(emailService *services.EmailService) gin.HandlerFunc {
 		}
 
 		if err := emailService.SendEmail(&email); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
-		}
-
-		if err := emailService.SendEmail(&email); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}

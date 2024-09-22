@@ -3,6 +3,7 @@ package providers
 
 import (
 	"fmt"
+	"strconv"
 
 	"mailclient/internal/models"
 )
@@ -25,6 +26,18 @@ type EmailProvider interface {
 // New creates a new EmailProvider based on the provided type and configuration.
 func New(providerType string, config map[string]string) (EmailProvider, error) {
 	switch providerType {
+	case "smtp":
+		smtpConfg := models.SMTPConfig{
+			Host:     config["host"],
+			Username: config["username"],
+			Password: config["password"],
+		}
+		if portStr, ok := config["port"]; ok {
+			if port, err := strconv.Atoi(portStr); err == nil {
+				smtpConfg.Port = port
+			}
+		}
+		return NewSMTPProvider(smtpConfg)
 	case "proton":
 		provider, err := NewProtonMailProvider(config["username"], config["password"])
 		if err != nil {

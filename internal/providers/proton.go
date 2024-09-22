@@ -97,7 +97,7 @@ func (p *ProtonMailProvider) GetEmails(folder string, limit, offset int) ([]mode
 		emails[i] = models.Email{
 			ID:      msg.ID,
 			Subject: msg.Subject,
-			Sender:  msg.Sender.Address,
+			To:      msg.Sender.Address,
 		}
 	}
 

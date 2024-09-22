@@ -6,12 +6,17 @@ import (
 	"os"
 )
 
+// ProviderConfig represents the configuration for an email provider
+type ProviderConfig struct {
+	Type   string            `json:"type"`
+	Config map[string]string `json:"config"`
+}
+
 // Config represents the application configuration
 type Config struct {
-	ServerAddress  string            `json:"server_address"`
-	Provider       string            `json:"provider"`
-	ProviderConfig map[string]string `json:"provider_config"`
-	JWTSecret      string            `json:"jwt_secret"`
+	ServerAddress  string         `json:"server_address"`
+	JWTSecret      string         `json:"jwt_secret"`
+	ProviderConfig ProviderConfig `json:"provider_config"`
 }
 
 // Load reads the configuration from a JSON file and returns a Config struct.

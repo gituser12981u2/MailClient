@@ -21,14 +21,14 @@ func main() {
 	}
 
 	// Initialize email provider
-	provider, err := providers.New(cfg.Provider, cfg.ProviderConfig)
+	provider, err := providers.New(cfg.ProviderConfig.Type, cfg.ProviderConfig.Config)
 	if err != nil {
 		log.Fatalf("Failed to initialize email provider: %v", err)
 	}
 
 	// Initialize services
 	authService := services.NewAuthService(cfg.JWTSecret)
-	emailService := services.NewEmailService(provider)
+	emailService := services.NewEmailService(provider, cfg.ProviderConfig.Config["username"])
 
 	// Set up Gin router
 	router := gin.Default()
